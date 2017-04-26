@@ -1,0 +1,27 @@
+v2.3
+* Some code review and refactoring.
+* Get rid of a warning in release build mode
+* merged together build-DBG.sh and build-REL.sh into build.sh
+
+v2.2
+* Anticheat system, which prevents rotation glitches with some figures.
+* Introducing clear.sh, tiny dev util.
+
+v2.1
+* build system change
+* small restucturization (more to come)
+* small rainbow constants change
+
+v2.0
+* Major internal code changes 
+* Added main menu and posibility to change difficulty.
+* Featuring rainbow mode.
+
+v1.1
+* Fixed compilation problem on mac.
+* Pause feature.
+* Force fall feature.
+* Ui improvements.
+
+v1.0
+* First release.
