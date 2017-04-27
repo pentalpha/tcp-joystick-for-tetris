@@ -11,6 +11,9 @@ Server::Server(){
   address.sin_port = htons(PORTNUM);
   //address.sin_addr.s_addr = INADDR_ANY;
   address.sin_addr.s_addr = inet_addr("127.0.0.1");
+  connected = false;
+  exitFlag = false;
+  waitingFlag =false;
 }
 
 bool Server::start(){
@@ -23,6 +26,7 @@ bool Server::start(){
   if(startListening() == false){
     return false;
   }
+  waitingFlag = false;
   return true;
 }
 
@@ -66,22 +70,53 @@ bool Server::startListening(){
   }
 }
 
+bool Server::isConnected(){
+  return connected;
+}
+
+string Server::getMessage(){
+  string *msg = messages.pop();
+  if(msg == NULL){
+    return "";
+  }else{
+    return *msg;
+  }
+}
+
+void Server::startWaiting(){
+  exitFlag = false;
+  waitingFlag = true;
+  thread theThread = thread(&Server::waitForClientAndReceive, this);
+  theThread.detach();
+}
+
+void Server::stop(){
+  std::cout << "Server auto stopping itself\n";
+  exitFlag = true;
+}
+
+bool Server::isWaiting(){
+  return waitingFlag;
+}
+
 void Server::waitForClientAndReceive(){
   //servidor ficar em um loop infinito
-  std::cout << "Server: waiting for client connections\n";
+  std::cout << "Waiting for a client\n";
 
+  waitingFlag = true;
   //Servidor fica bloqueado esperando uma conexão do cliente
   connectionClientId = accept( socketId,(struct sockaddr *) &addressClient,&sizeAddressClient );
 
-  std::cout << "Server: received connection from " << inet_ntoa(addressClient.sin_addr) << "\n";
-
+  std::cout << "Connected to " << inet_ntoa(addressClient.sin_addr) << "\n";
+  waitingFlag = false;
+  connected = true;
   //Verificando erros
   if ( connectionClientId == -1)
   {
       std::cout << "Failed to accept()\n";
       return;
   }
-  while(1){
+  while(!exitFlag){
     //receber uma msg do cliente
     std::cout << "Server waiting for a message...\n";
     bytesread = recv(connectionClientId,msg,MAXMSG,0);
@@ -97,8 +132,12 @@ void Server::waitForClientAndReceive(){
     }
     //Inserir o caracter de fim de mensagem
     msg[bytesread] = '\0';
-    std::cout << "Servidor recebeu a seguinte msg do cliente: " << msg << "\n";
+    //std::cout << "Servidor recebeu a seguinte msg do cliente: " << msg << "\n";
+    string *s = new string(msg);
+    messages.push(s);
     //close(connectionClientId);
   }
+  waitingFlag = false;
+  connected = false;
   close(connectionClientId);
 }
