@@ -18,17 +18,6 @@ int* Queue::pop()
   return val;
 }
 
-void Queue::pop(int* item)
-{
-  std::unique_lock<std::mutex> mlock(mutex_);
-  while (queue_.empty())
-  {
-    cond_.wait(mlock);
-  }
-  item = queue_.front();
-  queue_.pop();
-}
-
 void Queue::push(int* item)
 {
   std::unique_lock<std::mutex> mlock(mutex_);

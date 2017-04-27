@@ -91,7 +91,7 @@ void Server::startWaiting(){
 }
 
 void Server::stop(){
-  std::cout << "Server auto stopping itself\n";
+  //std::cout << "Server auto stopping itself\n";
   exitFlag = true;
 }
 
@@ -101,13 +101,13 @@ bool Server::isWaiting(){
 
 void Server::waitForClientAndReceive(){
   //servidor ficar em um loop infinito
-  std::cout << "Waiting for a client\n";
+  //std::cout << "Waiting for a client\n";
 
   waitingFlag = true;
   //Servidor fica bloqueado esperando uma conexão do cliente
   connectionClientId = accept( socketId,(struct sockaddr *) &addressClient,&sizeAddressClient );
 
-  std::cout << "Connected to " << inet_ntoa(addressClient.sin_addr) << "\n";
+  //std::cout << "Connected to " << inet_ntoa(addressClient.sin_addr) << "\n";
   waitingFlag = false;
   connected = true;
   //Verificando erros
@@ -118,7 +118,7 @@ void Server::waitForClientAndReceive(){
   }
   while(!exitFlag){
     //receber uma msg do cliente
-    std::cout << "Server waiting for a message...\n";
+    //std::cout << "Server waiting for a message...\n";
     bytesread = recv(connectionClientId,msg,MAXMSG,0);
     if (bytesread == -1)
     {
@@ -127,7 +127,7 @@ void Server::waitForClientAndReceive(){
     }
     else if (bytesread == 0)
     {
-        std::cout << "Client finished connection\n";
+        //std::cout << "Client finished connection\n";
         break;
     }
     //Inserir o caracter de fim de mensagem

@@ -1,10 +1,19 @@
-#include "beagleController.h"
+#include "NetworkController.h"
 #include <iostream>
 using namespace std;
 
 bool NetworkController::keepUpdating;
 Queue NetworkController::cmds;
 Server NetworkController::cmdServer;
+const string NetworkController::no_commandStr = "";
+//A movement to the right
+const string NetworkController::rightStr = "right";
+//A movement to the left
+const string NetworkController::leftStr = "left";
+//The light on the LDR decreased
+const string NetworkController::shadowStr = "shadow";
+//The button has been pressed
+const string NetworkController::buttonStr = "button";
 
 /*NetworkController::NetworkController(){
   startWatchers();
@@ -54,7 +63,7 @@ void NetworkController::serverWatcher(){
       *cmdPointer = NetworkController::button;
     }
     if(*cmdPointer != NetworkController::no_command){
-      cmds.push(v);
+      cmds.push(cmdPointer);
     }
   }
 }

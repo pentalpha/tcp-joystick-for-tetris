@@ -15,10 +15,7 @@
 class Queue
 {
  public:
-
   int* pop();
-
-  void pop(int* item);
 
   void push(int* item);
 

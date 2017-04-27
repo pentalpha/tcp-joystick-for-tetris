@@ -7,7 +7,7 @@
 #include "game.h"
 #include "terminal.h"
 #include "stdstyle.h"
-#include "beagleController/beagleController.h"
+#include "NetworkController/NetworkController.h"
 
 using std::map;
 using std::string;
@@ -16,19 +16,20 @@ using std::max;
 
 game::game(game_settings gm_settings): gm_settings(gm_settings), input_mgr(this), cur_figure_mgr(this), rainbow_feat(this)
 {
+	NetworkController::init();
 	game_field.resize(GAME_HEIGHT);
 	for (vector<char_data>& line: game_field)
 	{
 		line.resize(GAME_WIDTH);
 		std::fill(line.begin(), line.end(), char_data::space());
 	}
-	BeagleController::init();
 	state = 0; // running.
+	NetworkController::start();
 }
 
 game::~game()
 {
-	BeagleController::end();
+	NetworkController::end();
 }
 
 
@@ -123,7 +124,7 @@ void input_manager::process_input()
 	{
 		ch = getch();
 		bgCmd = 0;
-		bgCmd = BeagleController::getCommand();
+		bgCmd = NetworkController::getCommand();
 		if (ch != ERR){
 			if (ch == 'q' or ch == 'Q')
 				the_game->set_stopped();
@@ -147,14 +148,14 @@ void input_manager::process_input()
 				move_rotational += -1;
 			if (ch == KEY_UP || ch == 'w' || ch == 'W')
 				move_rotational += +1;
-		}else if(bgCmd != BeagleController::no_command){
-			if(bgCmd == BeagleController::shadow)
+		}else if(bgCmd != NetworkController::no_command){
+			if(bgCmd == NetworkController::shadow)
 				force_fall = true;
-			if (bgCmd == BeagleController::left)
+			if (bgCmd == NetworkController::left)
 				move_horizontal += -1;
-			if (bgCmd == BeagleController::right)
+			if (bgCmd == NetworkController::right)
 				move_horizontal += +1;
-			if (bgCmd == BeagleController::button)
+			if (bgCmd == NetworkController::button)
 				move_rotational += -1;
 		}else{
 			break;

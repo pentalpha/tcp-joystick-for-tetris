@@ -1,9 +1,9 @@
 all:
 	g++ \
-	src/NetworkController/NetworkController.cpp \
-	src/NetworkController/gpio.cpp \
 	src/NetworkController/Queue.cpp \
-	src/NetworkController/run.cpp \
+	src/NetworkController/StringQueue.cpp \
+	src/NetworkController/Server.cpp \
+	src/NetworkController/NetworkController.cpp \
 	src/figures.cpp \
 	src/game.cpp \
 	src/Iscreen.cpp \
