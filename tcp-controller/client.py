@@ -5,10 +5,18 @@ PORT = 4325             # Porta que o Servidor esta
 tcp = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 dest = (HOST, PORT)
 tcp.connect(dest)
-i = 0;
-while i < 10:
+commands = list()
+commands.append("right")
+commands.append("left")
+commands.append("right")
+commands.append("right")
+commands.append("right")
+commands.append("shadow")
+commands.append("button")
+commands.append("left")
+commands.append("left")
+for cmd in commands:
     time.sleep(1)
-    msg = "Message " + str(i) + " from client"
+    msg = cmd
     tcp.send(msg.encode())
-    i = i + 1
 tcp.close()
