@@ -1,9 +1,9 @@
 all:
 	g++ \
-	src/beagleController/beagleController.cpp \
-	src/beagleController/gpio.cpp \
-	src/beagleController/Queue.cpp \
-	src/beagleController/run.cpp \
+	src/NetworkController/NetworkController.cpp \
+	src/NetworkController/gpio.cpp \
+	src/NetworkController/Queue.cpp \
+	src/NetworkController/run.cpp \
 	src/figures.cpp \
 	src/game.cpp \
 	src/Iscreen.cpp \
@@ -15,10 +15,10 @@ all:
 
 arm:
 	arm-linux-gnueabihf-g++ \
-	src/beagleController/beagleController.cpp \
-	src/beagleController/gpio.cpp \
-	src/beagleController/Queue.cpp \
-	src/beagleController/run.cpp \
+	src/NetworkController/NetworkController.cpp \
+	src/NetworkController/gpio.cpp \
+	src/NetworkController/Queue.cpp \
+	src/NetworkController/run.cpp \
 	src/figures.cpp \
 	src/game.cpp \
 	src/Iscreen.cpp \
