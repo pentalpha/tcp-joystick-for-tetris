@@ -101,13 +101,13 @@ bool Server::isWaiting(){
 
 void Server::waitForClientAndReceive(){
   //servidor ficar em um loop infinito
-  //std::cout << "Waiting for a client\n";
+  std::cout << "Waiting for a client\n";
 
   waitingFlag = true;
   //Servidor fica bloqueado esperando uma conexão do cliente
   connectionClientId = accept( socketId,(struct sockaddr *) &addressClient,&sizeAddressClient );
 
-  //std::cout << "Connected to " << inet_ntoa(addressClient.sin_addr) << "\n";
+  std::cout << "Connected to " << inet_ntoa(addressClient.sin_addr) << "\n";
   waitingFlag = false;
   connected = true;
   //Verificando erros
