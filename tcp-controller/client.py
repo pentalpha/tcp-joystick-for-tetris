@@ -1,7 +1,12 @@
 import socket
 import time
-HOST = '10.7.5.38'      # Endereco IP do Servidor
+import sys
+
+HOST = "127.0.0.1"
+if(len(sys.argv) == 2):
+	HOST = sys.argv[1]      # Endereco IP do Servidor
 PORT = 50001             # Porta que o Servidor esta
+print("Hosting on " + HOST)
 tcp = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 dest = (HOST, PORT)
 tcp.connect(dest)
