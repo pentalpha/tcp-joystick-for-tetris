@@ -1,6 +1,6 @@
 #include "Server.h"
 
-Server::Server(){
+Server::Server(const char* localIP){
   sizeAddressClient = sizeof(struct sockaddr);
   msg = new char[MAXMSG+1];
   /*
@@ -10,7 +10,7 @@ Server::Server(){
   address.sin_family = AF_INET;
   address.sin_port = htons(PORTNUM);
   //address.sin_addr.s_addr = INADDR_ANY;
-  address.sin_addr.s_addr = inet_addr("127.0.0.1");
+  address.sin_addr.s_addr = inet_addr(localIP);
   connected = false;
   exitFlag = false;
   waitingFlag =false;

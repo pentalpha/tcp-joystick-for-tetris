@@ -13,13 +13,13 @@
 #include <string>
 
 #define MAXMSG 1024
-#define PORTNUM 4325
+#define PORTNUM 50001
 
 using namespace std;
 
 class Server{
 public:
-  Server();
+  Server(const char* localIP);
 
   bool start();
   void startWaiting();

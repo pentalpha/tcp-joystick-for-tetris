@@ -37,13 +37,15 @@ public:
   static void init();
   static void start();
   static void end();
+  static void setIP(const char* ip);
   //static NetworkController* _instance;
 private:
 
   //flag to continue the updating of the values
   static bool keepUpdating;
   static Queue cmds;
-  static Server cmdServer;
+  static Server *cmdServer;
+  static const char* localIP;
 
   //starts to update the values
   static void startWatchers();

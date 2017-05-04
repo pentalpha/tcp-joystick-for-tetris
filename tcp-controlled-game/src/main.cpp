@@ -1,15 +1,23 @@
 #include <memory>
 #include <time.h>
+#include <iostream>
+#include "NetworkController/NetworkController.h"
 #include "./terminal.h"
 #include "./Iscreen.h"
 #include "./main_menu.h"
 #include "./stdstyle.h"
 
-int main()
+int main(int argc, char const *argv[])
 {
+	if(argc >= 2){
+		NetworkController::setIP(argv[1]);
+		//std::cout << "setting ip to " << argv[1] << "\n";
+	}else{
+		NetworkController::setIP("127.0.0.1");
+	}
 	terminal_init();
 	srand(time(0));
-	
+
 	// thanks to gameprogrammingpatterns.com for the gameloop.
 	const clock_t CLOCKS_PER_UPD = CLOCKS_PER_SEC / TICKS_PER_SEC;
 	clock_t prev = clock();
@@ -22,7 +30,7 @@ int main()
 		clock_t elapsed = cur - prev;
 		prev = cur;
 		lag += elapsed;
-		
+
 		if (lag >= clock_t(5 * CLOCKS_PER_SEC))
 		{
 			lag = clock_t(0); // warning: can't keep up.
@@ -36,13 +44,13 @@ int main()
 				scr_mgr.process_input();
 				scr_mgr.update_game();
 			}
-			
+
 			scr_mgr.render();
 		}
 		else
 		{
 			// lag < CLOCKS_PER_UPD
-			
+
 			// it is expected to CLOCKS_PER_SEC to be equal 10^6, but it is not required.
 			long nanosec = (CLOCKS_PER_UPD - lag) * (1000000000 / CLOCKS_PER_SEC);
 			timespec req = {0, nanosec};
@@ -50,9 +58,9 @@ int main()
 			lag = CLOCKS_PER_UPD;
 		}
 	}
-	
+
 	terminal_shutdown();
 	printf("# Bye #\n");
-	
+
 	return 0;
 }

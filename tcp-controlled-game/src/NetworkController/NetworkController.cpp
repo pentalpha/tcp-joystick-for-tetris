@@ -4,7 +4,8 @@ using namespace std;
 
 bool NetworkController::keepUpdating;
 Queue NetworkController::cmds;
-Server NetworkController::cmdServer;
+Server* NetworkController::cmdServer;
+const char* NetworkController::localIP;
 const string NetworkController::no_commandStr = "";
 //A movement to the right
 const string NetworkController::rightStr = "right";
@@ -23,18 +24,23 @@ NetworkController::~NetworkController(){
   stopWatchers();
 }*/
 
+void NetworkController::setIP(const char* ip){
+  NetworkController::localIP = ip;
+}
+
 void NetworkController::init(){
-  cmdServer.start();
+  NetworkController::cmdServer = new Server(localIP);
+  cmdServer->start();
   //startWatchers();
 }
 
 void NetworkController::end(){
   stopWatchers();
-  cmdServer.stop();
+  cmdServer->stop();
 }
 
 void NetworkController::start(){
-  cmdServer.startWaiting();
+  cmdServer->startWaiting();
   startWatchers();
 }
 
@@ -51,7 +57,7 @@ void NetworkController::stopWatchers(){
 void NetworkController::serverWatcher(){
   while(keepUpdating){
     std::this_thread::sleep_for(std::chrono::milliseconds(200));
-    string s = cmdServer.getMessage();
+    string s = cmdServer->getMessage();
     int *cmdPointer = new int(NetworkController::no_command);
     if(s == NetworkController::rightStr){
       *cmdPointer = NetworkController::right;
