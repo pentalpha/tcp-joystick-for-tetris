@@ -4,8 +4,13 @@ import time
 import socket
 from threading import Thread
 from Queue import Queue
+import sys
 
-HOST = "10.7.120.14"
+HOST = "127.0.0.1"
+if(len(sys.argv) == 2):
+	HOST = sys.argv[1]
+print("Host is in " + HOST)
+
 PORT = 4325
 
 POTENCIOMETER_TOLERANCE = 0.02
@@ -24,7 +29,7 @@ cmds = Queue()
 class LightWatcher(Thread):
 	def __init__(self):
 		Thread.__init__(self)
-	
+
 	def run(self):
 		ADC.setup()
 		shadowed = False
@@ -46,13 +51,13 @@ class LightWatcher(Thread):
 				pass
 			pass
 		pass
-			
-		
+
+
 
 class ButtonWatcher(Thread):
 	def __init__(self):
 		Thread.__init__(self)
-	
+
 	def run(self):
 		GPIO.setup(BUTTON_PORT, GPIO.IN)
 		button_value = GPIO.input(BUTTON_PORT)
@@ -72,7 +77,7 @@ class ButtonWatcher(Thread):
 class MoveWatcher(Thread):
 	def __init__(self):
 		Thread.__init__(self)
-	
+
 	def run(self):
 		ADC.setup()
 		old_potenciometer = ADC.read(POTENCIOMETER_PORT)
@@ -88,7 +93,7 @@ class MoveWatcher(Thread):
 			pass
 		pass
 
-			
+
 
 tcp = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 dest = (HOST, PORT)
@@ -107,5 +112,3 @@ while True:
 	while not cmds.empty():
 		tcp.send(cmds.get().encode())
 	#time.sleep(0.5)
-
-
