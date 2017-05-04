@@ -19,7 +19,7 @@ using namespace std;
 
 class Server{
 public:
-  Server();
+  Server(const char* localIP);
 
   bool start();
   void startWaiting();

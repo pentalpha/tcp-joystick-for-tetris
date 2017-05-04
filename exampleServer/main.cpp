@@ -4,7 +4,12 @@
 #include "Server.h"
 
 int main(int argc, char const *argv[]) {
-  Server server;
+  const char* ip = "127.0.0.1";
+  if(argc >= 2){
+    ip = argv[1];
+  }
+  std::cout << "Hosting on " << ip << std::endl;
+  Server server(ip);
   bool started = server.start();
   if(!started){
     std::cout << "Could not start server\n";
