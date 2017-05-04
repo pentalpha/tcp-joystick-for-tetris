@@ -91,7 +91,7 @@ void Server::startWaiting(){
 }
 
 void Server::stop(){
-  std::cout << "Server auto stopping itself\n";
+  //std::cout << "Server auto stopping itself\n";
   exitFlag = true;
 }
 
@@ -118,7 +118,7 @@ void Server::waitForClientAndReceive(){
   }
   while(!exitFlag){
     //receber uma msg do cliente
-    std::cout << "Server waiting for a message...\n";
+    //std::cout << "Server waiting for a message...\n";
     bytesread = recv(connectionClientId,msg,MAXMSG,0);
     if (bytesread == -1)
     {
@@ -127,7 +127,7 @@ void Server::waitForClientAndReceive(){
     }
     else if (bytesread == 0)
     {
-        std::cout << "Client finished connection\n";
+        //std::cout << "Client finished connection\n";
         break;
     }
     //Inserir o caracter de fim de mensagem

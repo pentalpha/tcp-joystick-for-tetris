@@ -11,17 +11,14 @@ int main(int argc, char const *argv[]) {
     return 1;
   }else{
     server.startWaiting();
-    while(server.isWaiting()){
-
-    }
-    int i = 10;
+    int i = 8;
     while(i > 0){
-      std::this_thread::sleep_for(std::chrono::milliseconds(1300));
+      std::this_thread::sleep_for(std::chrono::milliseconds(800));
       string s = server.getMessage();
       if(s != ""){
         cout << s << "\n";
+        i--;
       }
-      i--;
     }
     server.stop();
   }

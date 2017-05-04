@@ -1,7 +1,7 @@
 import socket
 import time
 HOST = '127.0.0.1'      # Endereco IP do Servidor
-PORT = 4325             # Porta que o Servidor esta
+PORT = 50001             # Porta que o Servidor esta
 tcp = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 dest = (HOST, PORT)
 tcp.connect(dest)
@@ -15,6 +15,9 @@ commands.append("shadow")
 commands.append("button")
 commands.append("left")
 commands.append("left")
+commands.append("right")
+commands.append("right")
+commands.append("right")
 for cmd in commands:
     time.sleep(1)
     msg = cmd

@@ -13,7 +13,7 @@
 #include <string>
 
 #define MAXMSG 1024
-#define PORTNUM 4325
+#define PORTNUM 50001
 
 using namespace std;
 
