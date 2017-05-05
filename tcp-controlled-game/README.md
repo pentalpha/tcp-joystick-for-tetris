@@ -1,25 +1,11 @@
 # About this fork:
 
-## This is a fork of the "tetris-on-terminal" to implement a analogic controller on the game with a Beaglebone Black.
+## This is a fork of the "tetris-on-terminal" project that uses C sockets to implement a remote joystick. The game can be controlled remotely by an joystick sending the commands through TCP protocol.
 
-### Controls:
-
-#### ADC:
-
-- A potenciometer in /sys/bus/iio/devices/iio:device0/in_voltage1_raw
-
-- A LDR sendor in /sys/bus/iio/devices/iio:device0/in_voltage3_raw
-
-#### GPIO:
-
-- An input button in /sys/class/gpio/gpio115;
-
-### The full circuit on a proto-board:
-
-![Controller on Beaglebone Black](./image2.jpg)
+Original description of the project:
 
 # Hello on tetris-on-terminal
-Tetis-on-terminal is a tetris game with CLI interface. I offer you classic tetris and cool "rainbow" mode. Try it out.
+Tetris-on-terminal is a tetris game with CLI interface. I offer you classic tetris and cool "rainbow" mode. Try it out.
 
 ![Classic mode in tetris-on-terminal](./image.png)
 
@@ -44,7 +30,7 @@ To get the tetris-on-terminal you need this dependencies:
 
 ### Step 3: run.
 ```sh
-    $ ./bin/tetris-on-terminal
+    $ ./bin/tetris-on-terminal <current IPv4 address>
 ```
 
 ### Step 4: enjoy!
