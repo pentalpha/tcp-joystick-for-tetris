@@ -2,10 +2,12 @@
 
 #### Actual game:
 [./tcp-controlled-game](https://github.com/pentalpha/tcp-joystick-for-tetris/tree/master/tcp-controlled-game) (more info. about it there)
+
 ![Classic mode in tetris-on-terminal](./tcp-controlled-game/image.png)
 
 #### Joystick:
 [./tcp-controller](https://github.com/pentalpha/tcp-joystick-for-tetris/tree/master/tcp-controller) (more info. about it there)
+
 ![Joystick on Beaglebone Black](./tcp-controller/image2.jpg)
 
 ### Description:
